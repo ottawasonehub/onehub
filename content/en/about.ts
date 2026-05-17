@@ -1,11 +1,12 @@
 export const about = {
   meta: {
-    title: 'About us | onehub',
-    description: 'Learn about onehub and our mission to connect Ottawa businesses.',
+    title: 'About | OneHub',
+    description: 'A curated local business directory for Ottawa.',
   },
-  heading: 'About us',
+  heading: 'About OneHub',
   intro:
-    'onehub is the premier directory for Ottawa businesses. We connect local entrepreneurs, help customers discover new services, and support the growth of our business community.',
-  placeholder:
-    'This page is a placeholder. Add your full about content here.',
+    'OneHub is a curated directory of local businesses in Ottawa. We make it easy for residents to discover services in their community and for business owners to get found.',
+  mission:
+    'Our goal is simple: help great local businesses connect with the people who need them. No algorithms, no ads — just a clean, browsable list of real Ottawa businesses.',
+  cta: 'Know a business that should be listed? Add it to the directory — it only takes a minute.',
 } as const;
