@@ -1,7 +1,7 @@
 export const nav = {
   links: [
-    { href: '/#businesses', label: 'Directory', path: '/' },
     { href: '/about', label: 'About' },
+    { href: '/#businesses', label: 'Directory', path: '/' },
   ],
   cta: { href: '/add', label: 'Add Business' },
   search: {
