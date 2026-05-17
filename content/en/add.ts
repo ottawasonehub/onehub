@@ -1,3 +1,5 @@
+import type { CreateBusinessDTO } from '@/lib/types/business.types';
+
 export const add = {
   meta: {
     title: 'Add Your Business | onehub',
@@ -9,7 +11,7 @@ export const add = {
     "Connect with Ottawa's thriving business community. Get discovered by thousands of local customers.",
   success: {
     heading: 'Welcome to One Hub!',
-    body: 'Your business has been successfully added to the Ottawa directory.',
+    body: 'Your business submission has been received and will be reviewed for the Ottawa directory.',
     redirecting: 'Redirecting to home...',
   },
   form: {
@@ -44,7 +46,17 @@ export const add = {
       },
     },
     submit: 'Add Your Business',
-    submitting: 'Adding Your Business...',
-    disclaimer: 'Free to join • No credit card required • Instant listing',
+    submitting: 'Submitting Your Business...',
+    disclaimer: 'Free to join • No credit card required • Reviewed before publishing',
   },
 } as const;
+
+export const formBoldFieldNames = {
+  name: 'business_name',
+  category: 'category',
+  phone: 'phone',
+  description: 'description',
+  address: 'address',
+  email: 'email',
+  website: 'website',
+} as const satisfies Record<keyof CreateBusinessDTO, string>;

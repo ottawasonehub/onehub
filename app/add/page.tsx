@@ -1,66 +1,57 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CreateBusinessDTO, BUSINESS_CATEGORIES } from '@/lib/types/business.types';
-import { add } from '@/content/en/add';
+import { add, formBoldFieldNames } from '@/content/en/add';
 import { common } from '@/content/en/common';
+import { DEFAULT_FORMBOLD_SUBMIT_URL } from '@/lib/formbold';
+import { useFormSubmission } from '@/hooks/useFormSubmission';
+
+const INITIAL_FORM_DATA: CreateBusinessDTO = {
+  name: '',
+  description: '',
+  category: 'Other',
+  address: '',
+  phone: '',
+  email: '',
+  website: '',
+};
+
+function buildFormBoldPayload(data: CreateBusinessDTO): Record<string, unknown> {
+  const payload: Record<string, unknown> = {};
+
+  for (const key of Object.keys(formBoldFieldNames) as Array<keyof CreateBusinessDTO>) {
+    payload[formBoldFieldNames[key]] = data[key] ?? '';
+  }
+
+  return payload;
+}
 
 export default function AddBusinessPage() {
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
 
-  const [formData, setFormData] = useState<CreateBusinessDTO>({
-    name: '',
-    description: '',
-    category: 'Other',
-    address: '',
-    phone: '',
-    email: '',
-    website: '',
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    setError(null);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-
-    try {
-      const response = await fetch('/api/businesses', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Failed to create business');
-      }
-
-      setSuccess(true);
+  const {
+    formData,
+    isSubmitting,
+    submitStatus,
+    handleChange,
+    handleSubmit,
+  } = useFormSubmission<CreateBusinessDTO>(INITIAL_FORM_DATA, {
+    submitEndpoint:
+      process.env.NEXT_PUBLIC_FORMBOLD_FORM_URL?.trim() ||
+      DEFAULT_FORMBOLD_SUBMIT_URL,
+    successMessage: add.success.body,
+    buildPayload: buildFormBoldPayload,
+    onSuccess: () => {
       setTimeout(() => {
         router.push('/');
-        router.refresh();
       }, 2000);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    },
+  });
 
-  if (success) {
+  const error = submitStatus.type === 'error' ? submitStatus.message : null;
+
+  if (submitStatus.type === 'success') {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="glass rounded-3xl p-12 max-w-md w-full text-center">
