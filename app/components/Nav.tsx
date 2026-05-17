@@ -90,7 +90,7 @@ export function Nav() {
           </form>
 
           {/* Desktop nav */}
-          <div key={currentPath} className="hidden lg:flex items-center gap-4 xl:gap-6">
+          <div key={currentPath} className="hidden lg:flex items-center gap-2">
             {nav.links.map((item) => {
               const active = isActive(item);
               return (
@@ -104,6 +104,13 @@ export function Nav() {
                 </Link>
               );
             })}
+            <Link
+              href={nav.cta.href}
+              className="ml-2 px-4 py-2 text-sm font-semibold rounded-full bg-brand text-white hover:bg-brand-hover transition-colors"
+              onClick={() => setMobileOpen(false)}
+            >
+              {nav.cta.label}
+            </Link>
           </div>
 
           {/* Mobile toggle */}
@@ -168,6 +175,13 @@ export function Nav() {
                 </Link>
               );
             })}
+            <Link
+              href={nav.cta.href}
+              className="mt-2 block text-center px-4 py-3 text-sm font-semibold rounded-full bg-brand text-white hover:bg-brand-hover transition-colors"
+              onClick={() => setMobileOpen(false)}
+            >
+              {nav.cta.label}
+            </Link>
           </div>
         </div>
       </div>

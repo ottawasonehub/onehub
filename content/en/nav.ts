@@ -1,12 +1,9 @@
 export const nav = {
   links: [
-    { href: '/about', label: 'ABOUT US' },
-    { href: '/add', label: 'ADD BUSINESS' },
-    { href: '/#businesses', label: 'DIRECTORY', path: '/' },
-    { href: '/events', label: 'EVENTS' },
-    { href: '/contact', label: 'CONTACT/CONNECT' },
-    { href: '/careers', label: 'CAREERS' },
+    { href: '/#businesses', label: 'Directory', path: '/' },
+    { href: '/about', label: 'About' },
   ],
+  cta: { href: '/add', label: 'Add Business' },
   search: {
     placeholder: 'Search businesses...',
     ariaLabel: 'Search businesses',
