@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 import { Montserrat, Playfair_Display } from 'next/font/google';
 import './globals.css';
@@ -45,6 +46,7 @@ export default function RootLayout({
         </Suspense>
         <main className="pt-20">{children}</main>
         <ChatAssistant />
+        <Analytics />
       </body>
     </html>
   );
